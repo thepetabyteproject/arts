@@ -7,12 +7,14 @@ class Telescope:
 
     """
 
-    def __init__(self):
-        self.name = None
-        self.location = np.array([])
-        self.dishsize = None
-        self.tsys = None
-        self.gain = None
+    def __init__(
+        self, name=None, location=np.array([]), dishsize=None, tsys=None, gain=None
+    ):
+        self.name = name
+        self.location = location
+        self.dishsize = dishsize
+        self.tsys = tsys
+        self.gain = gain
 
     @property
     def ndishes(self):
