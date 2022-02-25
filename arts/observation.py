@@ -67,7 +67,7 @@ class Observation(Telescope):
         Args:
             ra (string): right ascension of source
             dec (string): declination of source
-            dm (float): dispersion measure (pc/cm3)
+            dm (float): dispersion measure (pc/cm^3)
             model (string): electron density model; options are ne2001 and ymw16
         
         Returns:
