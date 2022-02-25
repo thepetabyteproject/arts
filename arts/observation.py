@@ -63,23 +63,22 @@ class Observation(Telescope):
 
     def dm_to_dist(self, ra, dec, dm, model):
         """
-        
+
         Args:
             ra (string): right ascension of source
             dec (string): declination of source
             dm (float): dispersion measure (pc/cm^3)
             model (string): electron density model; options are ne2001 and ymw16
-        
+
         Returns:
             dist (float): calculated distance to the source
 
         """
-        coords = SkyCoord(ra, dec, frame='icrs')
+        coords = SkyCoord(ra, dec, frame="icrs")
         coords = coords.galactic
         l, b = coords.l, coords.b
-        # convert to galac
-    
+        # convert to galactic coordinates
+
         dist, tau_sc = pygedm.dm_to_dist(l, b, dm, method=model)
-        
+
         return dist
-    
