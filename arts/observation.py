@@ -1,3 +1,7 @@
+import pygedm
+from astropy import units as u
+from astropy.coordinates import SkyCoord
+
 from arts.telescope import Telescope
 
 
@@ -56,3 +60,26 @@ class Observation(Telescope):
 
         """
         return 0
+
+    def dm_to_dist(self, ra, dec, dm, model):
+        """
+        
+        Args:
+            ra (string): right ascension of source
+            dec (string): declination of source
+            dm (float): dispersion measure (pc/cm3)
+            model (string): electron density model; options are ne2001 and ymw16
+        
+        Returns:
+            dist (float): calculated distance to the source
+
+        """
+        coords = SkyCoord(ra, dec, frame='icrs')
+        coords = coords.galactic
+        l, b = coords.l, coords.b
+        # convert to galac
+    
+        dist, tau_sc = pygedm.dm_to_dist(l, b, dm, method=model)
+        
+        return dist
+    
