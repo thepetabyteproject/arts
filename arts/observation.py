@@ -70,6 +70,8 @@ class Observation(Telescope):
                 4148808 * dm * ((hichan_start ** (-2)) - (hf ** (-2)))
             )  # delay across highest channel in ms
 
+        return t_delay
+
     def dm_smear_intrachan(self):
         """
 
