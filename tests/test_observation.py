@@ -25,12 +25,12 @@ def test_dm_delay():
     in_strs = ["bw", "lochan", "hichan"]
     # Check that delay = 0 when DM = 0
     for instr in in_strs:
-        assert pytest.approx(obs.dm_delay(0, instr), rel=1e-6) == 0.0
+        assert pytest.approx(myobs.dm_delay(0, instr), rel=1e-6) == 0.0
 
     # Check math for known calculation
-    assert pytest.approx(obs.dm_delay(20), rel=1e-3) == 403.356333333334
-    assert pytest.approx(obs.dm_delay(20, "lochan"), rel=1e-3) == 1.19929396522448
-    assert pytest.approx(obs.dm_delay(20, "hichan"), rel=1e-3) == 0.50681746304299
+    assert pytest.approx(myobs.dm_delay(20), rel=1e-3) == 403.356333333334
+    assert pytest.approx(myobs.dm_delay(20, "lochan"), rel=1e-3) == 1.19929396522448
+    assert pytest.approx(myobs.dm_delay(20, "hichan"), rel=1e-3) == 0.50681746304299
 
     # Check that delay = 0 when bandwidth = 0
     setattr(myobs, "bandwidth", 0)
