@@ -61,7 +61,7 @@ class Observation(Telescope):
             t_delay = (
                 4148808 * dm * ((lf ** (-2)) - (hf ** (-2)))
             )  # delay across BW in ms
-        elif t_out == "lowchan":
+        elif t_out == "lochan":
             t_delay = (
                 4148808 * dm * ((lf ** (-2)) - (lowchan_end ** (-2)))
             )  # delay across lowest channel in ms

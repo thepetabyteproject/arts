@@ -39,4 +39,4 @@ def test_dm_delay():
 
     # Check that error is raised when invalid string is passed
     with pytest.raises(ValueError):
-        obs.dm_delay(20, "abcdef")
+        myobs.dm_delay(20, "abcdef")
