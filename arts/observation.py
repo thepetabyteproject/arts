@@ -30,30 +30,45 @@ class Observation(Telescope):
         """
         return 0
 
-    def dm_delay(self, dm):
+    def dm_delay(self, dm, t_out="bw"):
         """
-
         Args:
             dm (float): dispersion measure (pc/cm^3)
+            t_out (str): which dispersion delay the function returns.
+              Default: "bw" = delay across entire bandwidth
+              "hichan" = delay across highest frequency channel
+              "lochan" = delay across lowest frequency channel
 
-        Returns: 
-            t_delay_bw (float): dispersion delay across bandwidth in ms
-            t_delay_lowchan (float): dispersion delay across lowest frequency channel in ms
-            t_delay_hichan (float): dispersion delay across highest frequency channel in ms
+        Returns:
+            t_delay (float): dispersion delay across desired frequency range, in ms
 
         """
-        hf = self.center_freq + (self.bandwidth/2.)
-        lf = self.center_freq - (self.bandwidth/2.)
-        #Make sure frequencies are in MHz otherwise this is wrong
 
-        chan_width = self.bandwidth/self.nchans
-        lowchan_end = lf + chan_width #upper frequency of lowest-frequency channel
-        hichan_start = hf - chan_width #lower frequency of highest-frequency channel
+        hf = self.center_freq + (self.bandwidth / 2.0)
+        lf = self.center_freq - (self.bandwidth / 2.0)
+        # Make sure frequencies are in MHz otherwise this is wrong
 
-        t_delay_bw = 4148808 * dm * ( (lf**(-2)) - (hf**(-2)) ) #delay across BW in ms
-        t_delay_lowchan = 4148808 * dm * ( (lf**(-2)) - (lowchan_end**(-2)) ) #delay across lowest channel in ms
-        t_delay_hichan = 4148808 * dm * ( (hichan_start**(-2)) - (hf**(-2)) ) #delay across highest channel in ms
-        return t_delay_bw, t_delay_lowchan, t_delay_hichan
+        chan_width = self.bandwidth / self.nchans
+        lowchan_end = lf + chan_width  # upper frequency of lowest-frequency channel
+        hichan_start = hf - chan_width  # lower frequency of highest-frequency channel
+
+        if t_out not in ["bw", "hichan", "lochan"]:
+            raise ValueError(
+                "Output string should be one of the preset values: 'bw', 'hichan', or 'lochan'"
+            )
+
+        if t_out == "bw":
+            t_delay = (
+                4148808 * dm * ((lf ** (-2)) - (hf ** (-2)))
+            )  # delay across BW in ms
+        elif t_out == "lowchan":
+            t_delay = (
+                4148808 * dm * ((lf ** (-2)) - (lowchan_end ** (-2)))
+            )  # delay across lowest channel in ms
+        elif t_out == "hichan":
+            t_delay = (
+                4148808 * dm * ((hichan_start ** (-2)) - (hf ** (-2)))
+            )  # delay across highest channel in ms
 
     def dm_smear_intrachan(self):
         """

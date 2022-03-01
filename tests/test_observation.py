@@ -18,20 +18,25 @@ def test_min_flux():
 
 def test_dm_delay():
     myobs = Observation()
-    setattr(myobs,'bandwidth',100)
-    setattr(myobs,'center_freq',350)
-    setattr(myobs,'nchans',512)
+    setattr(myobs, "bandwidth", 100)
+    setattr(myobs, "center_freq", 350)
+    setattr(myobs, "nchans", 512)
 
-    #Check that delay = 0 when DM = 0
-    for i in range(3):
-        assert pytest.approx(obs.dm_delay(dm=0)[i], rel=1e-6) == 0.
+    in_strs = ["bw", "lochan", "hichan"]
+    # Check that delay = 0 when DM = 0
+    for instr in in_strs:
+        assert pytest.approx(obs.dm_delay(0, instr), rel=1e-6) == 0.0
 
-    #Check math for known calculation
-    assert pytest.approx(obs.dm_delay(dm=20)[0], rel=1e-3) == 403.356333333334
-    assert pytest.approx(obs.dm_delay(dm=20)[1], rel=1e-3) == 1.19929396522448
-    assert pytest.approx(obs.dm_delay(dm=20)[2], rel=1e-3) == 0.50681746304299
+    # Check math for known calculation
+    assert pytest.approx(obs.dm_delay(20), rel=1e-3) == 403.356333333334
+    assert pytest.approx(obs.dm_delay(20, "lochan"), rel=1e-3) == 1.19929396522448
+    assert pytest.approx(obs.dm_delay(20, "hichan"), rel=1e-3) == 0.50681746304299
 
-    #Check that delay = 0 when bandwidth = 0
-    setattr(myobs,'bandwidth',0)
-    for i in range(3):
-       assert pytest.approx(myobs.dm_delay(50)[i],rel=1e-6) == 0.
+    # Check that delay = 0 when bandwidth = 0
+    setattr(myobs, "bandwidth", 0)
+    for instr in in_strs:
+        assert pytest.approx(myobs.dm_delay(50, instr), rel=1e-6) == 0.0
+
+    # Check that error is raised when invalid string is passed
+    with pytest.raises(ValueError):
+        obs.dm_delay(20, "abcdef")
