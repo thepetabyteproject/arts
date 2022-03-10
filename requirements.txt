@@ -1,5 +1,5 @@
-astropy
-pygedm
+astropy>=4.3.1
+pygedm>=3.3.0
 numpy>=1.19.2
-scipy
+scipy>-1.7.3
 setuptools>=50.3.0
