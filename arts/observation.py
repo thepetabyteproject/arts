@@ -1,5 +1,4 @@
 import pygedm
-from astropy import units as u
 from astropy.coordinates import SkyCoord
 
 from arts.telescope import Telescope
@@ -71,7 +70,7 @@ class Observation(Telescope):
             model (string): electron density model; options are ne2001 and ymw16
 
         Returns:
-            dist (float): calculated distance to the source
+            dist (float): calculated distance to the source (pc)
 
         """
         coords = SkyCoord(ra, dec, frame="icrs")
@@ -81,4 +80,4 @@ class Observation(Telescope):
 
         dist, tau_sc = pygedm.dm_to_dist(l, b, dm, method=model)
 
-        return dist
+        return float(dist.value)

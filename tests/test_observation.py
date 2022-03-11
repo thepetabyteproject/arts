@@ -31,10 +31,10 @@ def test_dm_to_dist():
     assert obs.dm_to_dist("00h00m00s", "00d00m00s", 0, "ymw16") == 0
 
     assert (
-        pytest.approx(obs.dm_to_dist("17h45m40s", "-29d00m28s", 10, "ne2001"), rel=1e-6)
-        == "422.4824905395508 pc"
+        pytest.approx(obs.dm_to_dist("17h45m40s", "-29d00m28s", 10, "ne2001").value, rel=1e-6)
+        == 422.4824905395508
     )
     assert (
-        pytest.approx(obs.dm_to_dist("17h45m40s", "-29d00m28s", 10, "ymw16"), rel=1e-6)
-        == "517.3521728515625 pc"
+        pytest.approx(obs.dm_to_dist("17h45m40s", "-29d00m28s", 10, "ymw16").value, rel=1e-6)
+        == 517.3521728515625
     )
