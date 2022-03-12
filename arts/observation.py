@@ -33,7 +33,7 @@ class Observation(Telescope):
         """
         return 0
 
-    def dm_delay(self, dm):
+    def dm_delay(self, dm, t_out="bw"):
         """
         Args:
             dm (float): dispersion measure (pc/cm^3)
@@ -41,6 +41,7 @@ class Observation(Telescope):
               Default: "bw" = delay across entire bandwidth
               "hichan" = delay across highest frequency channel
               "lochan" = delay across lowest frequency channel
+
         Returns:
             t_delay (float): dispersion delay across desired frequency range, in ms
         """

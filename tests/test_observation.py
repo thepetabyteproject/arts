@@ -3,7 +3,6 @@ import pygedm
 import pytest
 from astropy import units as u
 from astropy.coordinates import SkyCoord
-
 from arts.observation import Observation
 from arts.telescope import Telescope
 
