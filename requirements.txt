@@ -1,7 +1,7 @@
 astropy>=4.3.1
-f2c==0.1
+f2c>=0.1
 pygedm>=3.3.0
 pytest>=7.0.1
 numpy>=1.19.2
-scipy>-1.7.3
+scipy>=1.7.3
 setuptools>=50.3.0
