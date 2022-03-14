@@ -1,5 +1,5 @@
 astropy>=4.3.1
-f2c>=20160102
+f2c==0.1
 pygedm>=3.3.0
 pytest>=7.0.1
 numpy>=1.19.2
